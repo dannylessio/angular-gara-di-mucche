@@ -1,16 +1,11 @@
 import { Component } from '@angular/core';
+import { Mucca } from './mucca';
 
-/*
-  Definisco la classe Mucca
-*/
-export class Mucca {
-  marchio: number;
-  nome: string;
-}
 
 /* Non so perchè debba essere "const"
    E' stato inserito qui perchè in futuro utilizzeremo
 */
+
 const array_di_mucche : Mucca[] = [
   { marchio : 5532, nome : "Carolina" },
   { marchio : 1000, nome : "Bambolina"},
@@ -106,18 +101,8 @@ const array_di_mucche : Mucca[] = [
     </li>
   </ul>
 
-  <div *ngIf="mucca_selezionata">
-    <h2>I dettagli di mucca {{mucca_selezionata.nome}}:</h2>
-    <div><label>Marchio: </label>{{mucca_selezionata.marchio}}</div>
-    <div>
-      <label>Nome senza ngModel binding: </label>
-      <input value={{mucca_selezionata.nome}} placeholder="Nome">
-      <br>
-      <label>Nome con ngModel two way binding: </label>
-      <input [(ngModel)]="mucca_selezionata.nome" placeholder="Nome two way binding">
-    </div>
-  </div>
-  <!-- ngIf and ngFor are called “structural directives” -> vedi MINDOMO! -->
+  <!-- Sfrutto un componente separato per la descrizione della mucca -->
+  <dettagli-mucca [mucca]="mucca_selezionata"></dettagli-mucca>
   `
 })
 
@@ -126,6 +111,7 @@ export class AppComponent {
   mucche = array_di_mucche;
 
   /* Dico semplicemente che mucca_selezionata è di tipo Mucca */
+
   mucca_selezionata : Mucca;
 
   seVieneSelezionata(mucca : Mucca): void {
